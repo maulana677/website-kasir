@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MenuController;
 use Illuminate\Support\Facades\Auth;
@@ -17,5 +18,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+
+    /** menu route */
+    Route::resource('category', CategoryController::class);
+
+    /** menu route */
     Route::resource('menu', MenuController::class);
 });

@@ -55,6 +55,12 @@
 
             <li class="menu-header">Starter</li>
 
+            <li class="{{ setSidebarActive(['admin.category.*']) }}">
+                <a class="nav-link" href="{{ route('admin.category.index') }}"><i class="fas fa-stream"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
             <li class="{{ setSidebarActive(['admin.menu.*']) }}">
                 <a class="nav-link" href="{{ route('admin.menu.index') }}"><i class="fas fa-stream"></i>
                     <span>Menu</span>

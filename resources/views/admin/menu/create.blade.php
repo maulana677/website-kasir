@@ -47,11 +47,11 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select class="form-control selectric" name="category">
+                                        <select class="form-control selectric" name="category_id">
                                             <option>Select</option>
-                                            <option value="Makanan">Makanan</option>
-                                            <option value="Minuman">Minuman</option>
-                                            <option value="Snack">Snack</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

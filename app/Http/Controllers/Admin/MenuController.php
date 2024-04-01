@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Alert;
+use App\Models\Category;
 use App\Traits\FileUploadTrait;
 
 class MenuController extends Controller
@@ -27,7 +28,10 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menu.create');
+        $categories = Category::all();
+        return view('admin.menu.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -37,7 +41,7 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:200'],
-            'category' => ['required'],
+            'category_id' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
             'image' => ['required', 'image', 'max:5000'],
         ]);
@@ -46,7 +50,7 @@ class MenuController extends Controller
         $menu = new Menu();
         $menu->image = $imagePath;
         $menu->name = $request->name;
-        $menu->category = $request->category;
+        $menu->category_id = $request->category_id;
         $menu->price = $request->price;
         $menu->save();
 
@@ -67,8 +71,13 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
+        $categories = Category::all();
+
         $menusEdit = Menu::findOrFail($id);
-        return view('admin.menu.edit', compact('menusEdit'));
+        return view('admin.menu.edit', [
+            'menusEdit' => $menusEdit,
+            'categories' => $categories
+        ]);
     }
 
     /**

@@ -3,27 +3,27 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Menu</h1>
+            <h1>Category</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="#">Posts</a></div>
-                <div class="breadcrumb-item">Menu</div>
+                <div class="breadcrumb-item">Category</div>
             </div>
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Menu</h2>
+            <h2 class="section-title">Category</h2>
             <p class="section-lead">
-                On this page you can see all the data.
+                On this page you can create a new post and fill in all fields.
             </p>
 
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Menus</h4>
+                            <h4>All Categories</h4>
                             <div class="card-header-action">
-                                <a href="{{ route('admin.menu.create') }}" class="btn btn-success">Create New <i
+                                <a href="{{ route('admin.category.create') }}" class="btn btn-success">Create New <i
                                         class="fas fa-plus"></i></a>
                             </div>
                         </div>
@@ -33,30 +33,21 @@
                                     <thead>
                                         <tr>
                                             <th class="text-left">
-                                                No
+                                                #
                                             </th>
-                                            <th>Image</th>
                                             <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($menus as $item)
+                                        @foreach ($category as $item)
                                             <tr>
                                                 <td>{{ ++$loop->index }}</td>
-                                                <td>
-                                                    <img src="{{ asset($item->image) }}" width="100" alt=""
-                                                        class="img-thumbnail">
-                                                </td>
                                                 <td>{{ $item->name }}</td>
-                                                <td>{{ $item->category->name }}</td>
-                                                <td>Rp. {{ number_format($item->price) }}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.menu.edit', $item->id) }}"
+                                                    <a href="{{ route('admin.category.edit', $item->id) }}"
                                                         class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                                    <a href="{{ route('admin.menu.destroy', $item->id) }}"
+                                                    <a href="{{ route('admin.category.destroy', $item->id) }}"
                                                         class="btn btn-danger delete-item"><i
                                                             class="fas fa-trash-alt"></i></a>
                                                 </td>
