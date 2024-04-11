@@ -24,9 +24,10 @@
                             <h4>Update Menu</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.menu.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.menu.update', $menusEdit->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
-
+                                @method('PUT')
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
                                     <div class="col-sm-12 col-md-7">

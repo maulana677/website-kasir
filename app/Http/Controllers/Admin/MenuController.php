@@ -87,9 +87,9 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:200'],
-            'category' => ['required'],
+            'category_id' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
-            'image' => ['required', 'image', 'max:5000'],
+            'image' => ['nullable', 'image', 'max:5000'],
         ]);
 
         $menu = Menu::findOrFail($id);
@@ -98,12 +98,12 @@ class MenuController extends Controller
 
         $menu->image = !empty($imagePath) ? $imagePath : $menu->image;
         $menu->name = $request->name;
-        $menu->category = $request->category;
+        $menu->category_id = $request->category_id;
         $menu->price = $request->price;
         $menu->save();
 
         toastr()->success('Updated Successfully!');
-        return redirect()->route('admin.footer-social.index');
+        return redirect()->route('admin.menu.index');
     }
 
     /**
@@ -111,6 +111,13 @@ class MenuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $menu = Menu::findOrFail($id);
+            $this->removeImage($menu->image);
+            $menu->delete();
+            return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'something went wrong!']);
+        }
     }
 }

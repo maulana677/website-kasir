@@ -28,10 +28,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>News</h4>
+                            <h4>Jumlah Menu</h4>
                         </div>
                         <div class="card-body">
-                            42
+                            {{ number_format($countMenu) }}
                         </div>
                     </div>
                 </div>
@@ -58,10 +58,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Online Users</h4>
+                            <h4>Online Kasir</h4>
                         </div>
                         <div class="card-body">
-                            47
+                            {{ number_format($countUser) }}
                         </div>
                     </div>
                 </div>

@@ -66,6 +66,12 @@
                     <span>Menu</span>
                 </a>
             </li>
+
+            <li class="{{ setSidebarActive(['admin.user.*']) }}">
+                <a class="nav-link" href="{{ route('admin.user.index') }}"><i class="fas fa-stream"></i>
+                    <span>Users</span>
+                </a>
+            </li>
             {{--  <li
                 class="nav-item dropdown {{ setSidebarActive(['admin.small-title.*', 'admin.hero.*', 'admin.hero-running-logo.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
