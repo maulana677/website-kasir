@@ -42,6 +42,9 @@
                     @if ($transaction != null)
                         <h4 class="text-dark fw-semibold mb-3">Order #003</h4>
 
+                        @php
+                            $subtotal = 0;
+                        @endphp
                         @foreach ($transaction->details as $item)
                             <div class="row align-items-center g-3 mt-3">
                                 <div class="col-3 col-lg-2">
@@ -54,13 +57,15 @@
                                 </div>
                                 <div class="col-4 col-lg-2">
                                     <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-sm btn-quantity rounded-circle">
+                                        <button class="btn btn-sm btn-quantity rounded-circle"
+                                            wire:click="decrement({{ $item->id }})">
                                             <i class="bx bx-minus"></i>
                                         </button>
                                         <p class="mb-0 text-dark">
                                             {{ $item->quantity }}
                                         </p>
-                                        <button class="btn btn-sm btn-quantity rounded-circle">
+                                        <button class="btn btn-sm btn-quantity rounded-circle"
+                                            wire:click="addToCart({{ $item->menu_id }})">
                                             <i class="bx bx-plus"></i>
                                         </button>
                                     </div>
@@ -71,17 +76,23 @@
                                     </p>
                                 </div>
                                 <div class="col-2 col-lg-1">
-                                    <button class="btn btn-sm btn-light btn-delete" type="button"><i
-                                            class="bx bx-trash"></i></button>
+                                    <button class="btn btn-sm btn-light btn-delete" type="button"
+                                        wire:click="delete({{ $item->id }})">
+                                        <i class="bx bx-trash"></i>
+                                    </button>
                                 </div>
                             </div>
+
+                            @php
+                                $subtotal += $item->price * $item->quantity;
+                            @endphp
                         @endforeach
 
                         <hr class="mt-5 mb-4">
 
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <p class="mb-0 text-secondary">Subtotal</p>
-                            <p class="mb-0 text-dark fw-bold">Rp. 229,000</p>
+                            <p class="mb-0 text-dark fw-bold">Rp. {{ number_format($subtotal) }}</p>
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <p class="mb-0 text-secondary">Pajak</p>
@@ -92,7 +103,7 @@
 
                         <div class="d-flex align-items-center justify-content-between mb-5">
                             <p class="mb-0 text-secondary">Total</p>
-                            <p class="mb-0 text-dark fw-bold fs-5">Rp. 241,000</p>
+                            <p class="mb-0 text-dark fw-bold fs-5">Rp. {{ number_format($subtotal + 12000) }}</p>
                         </div>
 
                         <button class="btn btn-primary rounded-3 d-block py-3 w-100" type="button"
