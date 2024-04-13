@@ -7,15 +7,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Semua</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Makanan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Minuman</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Snack</a>
-                </li>
+                @foreach ($categories as $category)
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ $category->name }}</a>
+                    </li>
+                @endforeach
             </ul>
 
             <div class="row g-3">
@@ -126,18 +122,18 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="customer_name"><i class="bx bx-user"></i></span>
-                        <input type="text" class="form-control" aria-describedby="customer_name" id="name">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="nominalInput">Rp.</span>
-                        <input type="text" class="form-control" value="233,000" aria-describedby="nominalInput"
-                            oninput="formatNumber(this)">
-                    </div>
+                    <form wire:submit="checkout">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="customer_name"><i class="bx bx-user"></i></span>
+                            <input type="text" class="form-control" wire:model="customer_name" id="name">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="nominalInput">Rp.</span>
+                            <input type="text" class="form-control" wire:model="pay">
+                        </div>
 
-                    <input type="hidden" id="nominal" value="233000">
-                    <button class="btn btn-primary w-100" type="button">Proses</button>
+                        <button class="btn btn-primary w-100" type="submit">Proses</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -12,6 +13,10 @@ class Cashier extends Component
 {
     public $menus;
     public $transaction;
+    public $customer_name;
+    public $pay;
+    public $total = 0;
+    public $categories;
 
     public function addToCart($id)
     {
@@ -49,7 +54,7 @@ class Cashier extends Component
             }
         }
 
-        $this->transaction = Transaction::where('status', 'Cart')->first();
+        $this->transaction = Transaction::where('status', 'Cart')->where('user_id', Auth::user()->id)->first();
     }
 
     public function decrement($id)
@@ -63,7 +68,7 @@ class Cashier extends Component
             ]);
         }
 
-        $this->transaction = Transaction::where('status', 'Cart')->first();
+        $this->transaction = Transaction::where('status', 'Cart')->where('user_id', Auth::user()->id)->first();
     }
 
     public function delete($id)
@@ -75,13 +80,37 @@ class Cashier extends Component
             $transaction_detail->delete();
         }
 
-        $this->transaction = Transaction::where('status', 'Cart')->first();
+        $this->transaction = Transaction::where('status', 'Cart')->where('user_id', Auth::user()->id)->first();
+    }
+
+    public function checkout()
+    {
+        $transaction = $this->transaction;
+
+        // Hitung Total Belanjaan
+        foreach ($transaction->details as $item) {
+            $this->total += $item->price * $item->quantity;
+        }
+
+        // Hitung Tax
+        $this->total += 12000;
+
+        $transaction->update([
+            'customer_name' => $this->customer_name,
+            'total' => $this->total,
+            'pay' => $this->pay,
+            'return' => $this->pay - $this->total,
+            'status' => 'Waiting'
+        ]);
+
+        return $this->redirectRoute('cashier.success', $transaction->id, navigate: true);
     }
 
     public function mount()
     {
         $this->menus = Menu::all();
-        $this->transaction = Transaction::where('status', 'Cart')->first();
+        $this->categories = Category::all();
+        $this->transaction = Transaction::where('status', 'Cart')->where('user_id', Auth::user()->id)->first();
     }
 
     public function render()
