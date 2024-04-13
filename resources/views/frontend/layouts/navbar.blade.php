@@ -21,7 +21,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Muhammad Yunus Almeida
+                        Muhammad Abu Zhar
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end mt-2">
                         <li><a class="dropdown-item" href="#">Setting</a></li>
