@@ -11,10 +11,12 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav me-auto gap-2">
                 <li class="nav-item">
-                    <a href="." class="nav-link active px-4">Kasir</a>
+                    <a wire:navigate href="{{ route('cashier.home') }}"
+                        class="nav-link {{ request()->is('home*') ? 'active' : '' }}">Kasir</a>
                 </li>
                 <li class="nav-item">
-                    <a href="order-list.html" class="nav-link px-4">Order List</a>
+                    <a wire:navigate href="{{ route('cashier.order-list') }}"
+                        class="nav-link {{ request()->is('order-list*') ? 'active' : '' }}">Order List</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">

@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('cashier.home');
 Route::get('/transaksi-sukses/{id}', [HomeController::class, 'success'])->name('cashier.success');
+Route::get('/print/{id}', [HomeController::class, 'print'])->name('cashier.cetak');
+
+Route::get('order-list', [HomeController::class, 'order_list'])->name('cashier.order-list');
 
 Auth::routes([
     'register' => false,
